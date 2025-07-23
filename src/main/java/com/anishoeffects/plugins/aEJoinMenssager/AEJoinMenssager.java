@@ -9,7 +9,7 @@ public final class AEJoinMenssager extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getLogger().info("§aPlugin started successfully!");
+        getLogger().info("Plugin started successfully!");
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
 
 
@@ -18,6 +18,6 @@ public final class AEJoinMenssager extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        getLogger().info("§aPlugin disabled successfully!");
+        getLogger().info("Plugin disabled successfully!");
     }
 }
