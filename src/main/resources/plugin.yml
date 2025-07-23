@@ -1,0 +1,6 @@
+name: AEJoinMenssager
+version: '1.0-SNAPSHOT'
+main: com.anishoeffects.plugins.aEJoinMenssager.AEJoinMenssager
+api-version: '1.21'
+authors: [ AnishoEffects ]
+description: A Welcome Message paper plugin for Minecraft servers 1.21.8
