@@ -1,6 +1,8 @@
 # AEJoinMessage - A Welcome Paper plugin for minecraft 1.21.8
 AEJoinMessage is a simple plugin that you can customize to receive new users joining your server
 
+![Demo_GIF](https://github.com/Edgar-sh/AEJoinMenssager/blob/master/.github/assets/demo.gif) 
+
 ## Check my social media
 ![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/EffectsAnisho)
 
@@ -19,4 +21,6 @@ AEJoinMessage is a simple plugin that you can customize to receive new users joi
 
 * **Robust and Stable:** Gracefully handles errors from malformed or missing configuration files without crashing the server, ensuring a smooth experience for server administrators.
 
-## Installation ⏬
+## Download ⏬
+
+Check in Google Drive: https://drive.google.com/drive/folders/1b6qwSLCcSKjDUmFDQ-QflccVRpX6KNE8?usp=drive_link
