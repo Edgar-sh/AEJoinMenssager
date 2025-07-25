@@ -1,0 +1,17 @@
+{
+  "welcome-title-main": {
+    "text": "Welcome ",
+    "color": "#F7E1D7",
+    "extra": [
+      {
+        "text": "{player}",
+        "color": "#EDAFB8"
+      }
+    ]
+  },
+  "welcome-title-subtitle": {
+    "text": " to the server!",
+    "color": "#F7E1D7"
+  }
+}
+

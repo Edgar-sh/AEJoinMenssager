@@ -1,61 +1,76 @@
 package com.anishoeffects.plugins.aEJoinMenssager;
 
 import com.anishoeffects.plugins.aEJoinMenssager.listener.JoinListener;
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.Map;
 
 
 public final class AEJoinMenssager extends JavaPlugin {
 
-    private Map<String, String> messages;
+    private JsonObject titleMessages;
+    private JsonObject chatMessages;
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        this.titleMessages = loadFile("title-messages.json");
+        this.chatMessages = loadFile("chat-messages.json");
 
-        // Verificando se diretorio (do plugin) já existe, caso não, cria o diretorio.
+        // Verificando se diretorio (na pasta plugin) já existe, caso não, cria o diretorio.
         if (!getDataFolder().exists()) {
             getLogger().info("Plugin folder not found, creating...");
-            getDataFolder().mkdirs();
-        } else {
-            getLogger().info("Plugin folder already exists!");
+            if (getDataFolder().mkdirs()){
+                getLogger().info("Plugin folder created sucessfuly.");
+            }else {
+                getLogger().severe("An error occurred while creating the plugin folder");
+            }
         }
-        // Copiando o "messages.json" para a pasta plugins(se ele não existir)
-        File messageFile = new File(getDataFolder(), "messages.json");
-        if (!messageFile.exists()){
-            saveResource("messages.json", false);
-        }
-        // Carregando mensagens do arquivo para a memória
-        loadMessages();
-
         getLogger().info("Plugin AEJoinMessage started successfully!");
-
         getServer().getPluginManager().registerEvents(new JoinListener(this), this);
-
     }
 
-    private void loadMessages() {
-        File messageFile = new File(getDataFolder(), "messages.json");
-        try (FileReader reader = new FileReader(messageFile)) {
-            Type type = new TypeToken<Map<String, String>>(){}.getType();
-            this.messages = new Gson().fromJson(reader, type);
-        } catch (IOException e) {
-            getLogger().severe("Falha ao carregar messages.json");
-            this.messages = Collections.emptyMap(); // Evitar erros se o arquivo fahar.
+    private JsonObject loadFile(String fileName) {
+        File file = new File(getDataFolder(), fileName);
+        // Garantindo que o arquivo existe na pasta plugins
+        if (!file.exists()) {
+            saveResource(fileName, false);
+        }
+        try (FileReader reader = new FileReader(file)) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        } catch (IOException | IllegalStateException e) {
+            getLogger().severe("Fail to load " + fileName);
+            return new JsonObject(); // Retornando objeto vazio para não para a execução.
+        }
+    }
+    public Component getTitleMessage(String key, Player player){
+        return getMessageFromObject(this.titleMessages, key, player);
+    }
+
+    public Component getChatMessage(String key, Player player){
+        return getMessageFromObject(this.chatMessages, key, player);
+    }
+
+    // Metodo para evitar repetição de código.
+    private Component getMessageFromObject(JsonObject jsonObject, String key, Player player){
+        // Retornando componente vazio caso não seja valido.
+        if (jsonObject == null || !jsonObject.has(key)) {
+            return Component.text("");
         }
 
+        String jsonString = jsonObject.get(key).toString();
 
-    }
-    public String getMessage(String key) {
-        return messages.getOrDefault(key, "");
+        if (player != null) {
+             jsonString = jsonString.replace("{player}", player.getName());
+        }
+
+        return JSONComponentSerializer.json().deserialize(jsonString);
     }
 
     @Override

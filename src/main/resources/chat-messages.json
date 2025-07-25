@@ -1,0 +1,18 @@
+{
+  "chat-text": {
+    "text": "Welcome, ",
+    "color": "#F7E1D7",
+    "extra": [
+      {
+        "text": "{player}",
+        "color": "#EDAFB8"
+      },
+      {
+        "text": " to the server!",
+        "color": "#F7E1D7"
+      }
+    ]
+  }
+}
+
+
