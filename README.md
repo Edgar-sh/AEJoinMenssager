@@ -23,4 +23,4 @@ AEJoinMessage is a simple plugin that you can customize to receive new users joi
 
 ## Download ⏬
 
-Check in Google Drive: https://drive.google.com/drive/folders/1b6qwSLCcSKjDUmFDQ-QflccVRpX6KNE8?usp=drive_link
+Download in Google Drive: https://drive.google.com/drive/folders/1b6qwSLCcSKjDUmFDQ-QflccVRpX6KNE8?usp=drive_link
